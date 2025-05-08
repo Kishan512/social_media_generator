@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Content Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Social Media Content Generator</h1>
+        <form method="POST">
+            <label for="keywords">Keywords (comma-separated):</label>
+            <input type="text" id="keywords" name="keywords" required>
+            
+            <label for="tone">Tone:</label>
+            <select id="tone" name="tone">
+                <option value="professional">Professional</option>
+                <option value="casual">Casual</option>
+                <option value="funny">Funny</option>
+            </select>
+            
+            <label for="platform">Platform:</label>
+            <select id="platform" name="platform">
+                <option value="Twitter">Twitter</option>
+                <option value="Instagram">Instagram</option>
+                <option value="LinkedIn">LinkedIn</option>
+            </select>
+            
+            <button type="submit">Generate Content</button>
+        </form>
+
+        {% if caption %}
+        <div class="results">
+            <h2>Generated Content</h2>
+            <p><strong>Caption:</strong> {{ caption }}</p>
+            <p><strong>Hashtags:</strong> {{ hashtags }}</p>
+            {% if image_path %}
+            <p><strong>Branded Image:</strong></p>
+            <img src="{{ url_for('download_file', filename=image_path) }}" alt="Branded Image" width="400">
+            <p><a href="{{ url_for('download_file', filename=image_path) }}">Download Image</a></p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
